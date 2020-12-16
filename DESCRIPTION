@@ -1,15 +1,18 @@
 Package: SimCompareR
-Title: What the Package Does (One Line, Title Case)
+Title: Compare Epidemic Simulations
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Jack",
+           family = "Wardle",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
+           email = "j.wardle19@imperial.ac.uk",
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to
-    pick a license
+Description: A series of functions for summarising simulated epidemics from a metapopulation SEIR model.
+Imports: 
+    dplyr,
+    stats,
+    magrittr
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)

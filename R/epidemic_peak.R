@@ -1,3 +1,11 @@
+#' Summarize time and size of epidemic peak
+#'
+#' @param simulation_data Simulated epidemics from metapopulation SEIR model
+#'
+#' @return summary
+#' @export
+#'
+
 epidemic_peak <- function(simulation_data) {
 
   # function that takes dataframe of simulations and extracts:
@@ -5,19 +13,19 @@ epidemic_peak <- function(simulation_data) {
   # b) number of cases at peak (median? 95% range?)
 
   peak <- simulation_data %>%
-    filter(variable == "infected") %>%
-    group_by(sim, patch) %>%
-    arrange(desc(value)) %>%
-    slice_head()
+    dplyr::filter(variable == "infected") %>%
+    dplyr::group_by(sim, patch) %>%
+    dplyr::arrange(desc(value)) %>%
+    dplyr::slice_head()
 
   peak_summary <- peak %>%
-    group_by(patch) %>%
-    summarise(tibble(peak_time_median = median(time),
-                     peak_time_lo = quantile(time, 0.025),
-                     peak_time_hi = quantile(time, 0.975),
-                     peak_size_median = median(value),
-                     peak_size_lo = quantile(value, 0.025),
-                     peak_size_hi = quantile(value, 0.975)))
+    dplyr::group_by(patch) %>%
+    dplyr::summarise(dplyr::tibble(peak_time_median = stats::median(time),
+                     peak_time_lo = stats::quantile(time, 0.025),
+                     peak_time_hi = stats::quantile(time, 0.975),
+                     peak_size_median = stats::median(value),
+                     peak_size_lo = stats::quantile(value, 0.025),
+                     peak_size_hi = stats::quantile(value, 0.975)))
 
   peak_summary
 

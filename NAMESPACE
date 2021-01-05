@@ -2,4 +2,8 @@
 
 export("%>%")
 export(epidemic_peak)
+export(plot_peak_summary)
+importFrom(ggplot2,aes)
+importFrom(ggplot2,ggplot)
 importFrom(magrittr,"%>%")
+importFrom(rlang,.data)

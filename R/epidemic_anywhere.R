@@ -1,3 +1,10 @@
+#' Identify if an epidemic occurred in any patch over the course of the simulation.
+#'
+#' @param simulation_data Simulated epidemics from metapopulation SEIR model.
+#'
+#' @return simulation_data with additional variable (any_epi) showing whether there were any epidemics.
+#'
+
 epidemic_anywhere <- function(simulation_data) {
 
   # global_epidemics <- simulation_data %>%

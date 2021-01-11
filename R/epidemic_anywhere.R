@@ -20,12 +20,3 @@ epidemic_anywhere <- function(simulation_data) {
     dplyr::mutate(any_epi = ifelse(sim %in% epi_sims, 1, 0))
 
 }
-
-epidemic_filter <- function(simulation_data) {
-
-  epidemic <- epidemic_anywhere(simulation_data) %>%
-    dplyr::filter(any_epi > 0)
-
-}
-
-

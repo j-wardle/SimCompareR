@@ -1,3 +1,11 @@
+#' Probability of observing an epidemic in simulations
+#'
+#' @param simulation_data Simulated epidemics from metapopulation SEIR model
+#'
+#' @return The probability that the simulated data contains at least one patch where an epidemic is observed.
+#' @export
+#'
+
 prob_epidemic <- function(simulation_data) {
 
   any_epidemic <- epidemic_anywhere(simulation_data) %>%

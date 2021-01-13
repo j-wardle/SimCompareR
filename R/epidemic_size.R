@@ -8,11 +8,13 @@
 
 epidemic_size <- function(simulation_data) {
 
-  final_size <- simulation_data %>%
+  final_size <- epidemic_anywhere(simulation_data) %>%
     dplyr::filter(time == max(time) & variable == "recovered")
 
-  plot <- ggplot2::ggplot(final_size) +
-    ggplot2::geom_histogram(aes(value)) +
+  final_size$any_epi <- as.factor(final_size$any_epi)
+
+  plot <- ggplot2::ggplot(final_size, aes(x = value, fill = any_epi, col = any_epi)) +
+    ggplot2::geom_histogram(position = "identity", alpha = 0.5) +
     ggplot2::theme_bw() +
     ggplot2::xlab("Number of people infected") +
     ggplot2::ylab("Number of simulations") +
@@ -20,8 +22,7 @@ epidemic_size <- function(simulation_data) {
 
   table <- final_size %>%
     dplyr::group_by(patch) %>%
-    dplyr::mutate(epidemic_flag = mmand::threshold(value, method = "kmeans")) %>%
-    dplyr::summarise(prob_epidemic = sum(epidemic_flag) / dplyr::n())
+    dplyr::summarise(prob_epidemic = sum(patch_epi) / dplyr::n())
 
   plot / gridExtra::tableGrob(table)
 

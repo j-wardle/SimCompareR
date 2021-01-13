@@ -34,16 +34,27 @@ epidemic_anywhere <- function(simulation_data, method = "bins") {
     threshold <- threshold[[1,1]]
 
     global_epidemics <- epidemic_size %>%
-      dplyr::mutate(epi_flag = ifelse(as.integer(bin) < as.integer(threshold),
+      dplyr::mutate(patch_epi = ifelse(as.integer(bin) < as.integer(threshold),
                                       0, 1)) %>%
       dplyr::group_by(sim) %>%
-      dplyr::mutate(number_epi = sum(epi_flag)) %>%
-      dplyr::filter(number_epi > 0)
+      dplyr::mutate(sim_epi_number = sum(patch_epi))
 
-    epi_sims <- global_epidemics$sim
+    global_epi_filter <- dplyr::filter(global_epidemics, sim_epi_number > 0)
+    epi_sims <- global_epi_filter$sim
 
-    simulation_data %>%
+    patch_sim_epi <- global_epidemics %>%
+      dplyr::select(sim, patch, patch_epi, sim_epi_number)
+
+    sim_epidemics <- dplyr::left_join(simulation_data, patch_sim_epi,
+                                      by = c("sim", "patch")) %>%
       dplyr::mutate(any_epi = ifelse(sim %in% epi_sims, 1, 0))
+
+    sim_epidemics
+
+    # simulation_data %>%
+    #   dplyr::mutate(patch_epi = global_epidemics$epi_flag,
+    #                 sim_epi_number = global_epidemics$number_epi,
+    #                 any_epi = ifelse(sim %in% epi_sims, 1, 0))
 
   } else if (method == "kmeans") {
 

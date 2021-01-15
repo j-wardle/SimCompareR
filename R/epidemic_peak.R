@@ -14,7 +14,8 @@ epidemic_peak <- function(simulation_data, filter = TRUE) {
   # b) number of cases at peak (median? 95% range?)
 
   if(filter == TRUE) {
-    simulation_data <- epidemic_filter(simulation_data)
+    simulation_data <- epidemic_anywhere(simulation_data) %>%
+      dplyr::filter(patch_epi == 1)
   }
 
   compartments <- c("susceptible", "exposed", "infected", "recovered")

@@ -7,7 +7,13 @@
 #'
 
 
-attack_rate <- function(simulation_data) {
+attack_rate <- function(simulation_data, filter = TRUE) {
+
+  if(filter == TRUE) {
+    simulation_data <- epidemic_anywhere(simulation_data) %>%
+      dplyr::filter(patch_epi == 1)
+
+  }
 
   compartments <- c("susceptible", "exposed", "infected", "recovered")
 

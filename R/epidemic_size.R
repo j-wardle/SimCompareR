@@ -20,10 +20,12 @@ epidemic_size <- function(simulation_data) {
     ggplot2::ylab("Number of simulations") +
     ggplot2::facet_wrap(~ patch)
 
-  table <- final_size %>%
-    dplyr::group_by(patch) %>%
-    dplyr::summarise(prob_epidemic = sum(patch_epi) / dplyr::n())
+  plot
 
-  plot / gridExtra::tableGrob(table)
+  # table <- final_size %>%
+  #   dplyr::group_by(patch) %>%
+  #   dplyr::summarise(prob_epidemic = sum(patch_epi) / dplyr::n())
+  #
+  # plot / gridExtra::tableGrob(table)
 
 }

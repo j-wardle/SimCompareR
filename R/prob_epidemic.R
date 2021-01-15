@@ -6,7 +6,7 @@
 #' @export
 #'
 
-prob_epidemic <- function(simulation_data) {
+prob_sim_epidemic <- function(simulation_data) {
 
   any_epidemic <- epidemic_anywhere(simulation_data) %>%
     dplyr::group_by(sim) %>%
